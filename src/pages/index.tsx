@@ -35,7 +35,7 @@ export default function Home() {
             </Link>
           </div>
         </div> */}
-        <div>hi</div>
+        <div>hi bye</div>
       </main>
     </>
   );
