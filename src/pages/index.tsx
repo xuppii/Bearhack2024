@@ -2,30 +2,32 @@
 import React, { useState, useEffect } from 'react';
 import * as tf from '@tensorflow/tfjs';
 
+
 function MyComponent() {
-  const [model, setModel] = useState(null);
-  const [predictionResult, setPredictionResult] = useState(null);
+  const [model, setModel] = useState(null as tf.LayersModel | null);
+  const [predictionResult, setPredictionResult] = useState(null as Float32Array | null)//<Float32Array | null>(null);
+  //const [predictionResult, setPredictionResult] = useState(null);
 
-  useEffect(() => {
+ void useEffect(() => {
     async function loadModel() {
-      const loadedModel = await tf.loadLayersModel('/model/model.json');
-      //console.log(loadedModel);
-      //print(loadedModel);
-      //setModel(loadedModel);
-      loadedModel.summary()
-    }
+        const loadedModel = await tf.loadLayersModel('/model/model.json');
+        setModel(loadedModel);
+        loadedModel.summary();
 
-    loadModel();
+    }
+  
+    void loadModel();
   }, []);
+  
   const makePrediction = async () => {
     if (model) {
       const shape = [1, 132]; // Assuming you want an array of shape (1, 132)
       // Create an array filled with zeros
       const zerosArray = tf.zeros(shape);
       // Make predictions using the model
-      const prediction = model.predict(zerosArray);
+      const prediction = model.predict(zerosArray) as tf.Tensor;
       // Extract the prediction result
-      const result = await prediction.data();
+      const result = prediction.data() as Float32Array;
       setPredictionResult(result);
     }
   };
