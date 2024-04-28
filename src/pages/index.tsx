@@ -9,7 +9,10 @@ function MyComponent() {
   useEffect(() => {
     async function loadModel() {
       const loadedModel = await tf.loadLayersModel('/model/model.json');
-      setModel(loadedModel);
+      //console.log(loadedModel);
+      //print(loadedModel);
+      //setModel(loadedModel);
+      loadedModel.summary()
     }
 
     loadModel();
