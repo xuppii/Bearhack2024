@@ -27,7 +27,8 @@ function MyComponent() {
       // Make predictions using the model
       const prediction = model.predict(zerosArray) as tf.Tensor;
       // Extract the prediction result
-      const result = prediction.data() as Float32Array;
+      const resultData = await prediction.data();
+      const result = new Float32Array(resultData);
       setPredictionResult(result);
     }
   };
